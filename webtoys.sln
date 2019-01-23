@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webtoys.Web", "Webtoys.Web\Webtoys.Web.csproj", "{83AB0830-00D3-49D4-985C-4F155D724911}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webtoys.Web", "Webtoys.Web\Webtoys.Web.csproj", "{83AB0830-00D3-49D4-985C-4F155D724911}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webtoys.CQRS", "Webtoys.CQRS\Webtoys.CQRS.csproj", "{575202D2-4272-4784-BEF0-3226296131CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{724C7B27-7746-41A4-BFE9-AAB5D4CE3413}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webtoys.UnitTests", "Webtoys.UnitTests\Webtoys.UnitTests.csproj", "{FC74DF6A-C784-419D-8A38-05112CDB4FA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webtoys.IntegrationTests", "Webtoys.IntegrationTests\Webtoys.IntegrationTests.csproj", "{DDE946E6-678F-4591-8005-05D7745C80CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,25 @@ Global
 		{83AB0830-00D3-49D4-985C-4F155D724911}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83AB0830-00D3-49D4-985C-4F155D724911}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83AB0830-00D3-49D4-985C-4F155D724911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{575202D2-4272-4784-BEF0-3226296131CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{575202D2-4272-4784-BEF0-3226296131CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{575202D2-4272-4784-BEF0-3226296131CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{575202D2-4272-4784-BEF0-3226296131CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC74DF6A-C784-419D-8A38-05112CDB4FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC74DF6A-C784-419D-8A38-05112CDB4FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC74DF6A-C784-419D-8A38-05112CDB4FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC74DF6A-C784-419D-8A38-05112CDB4FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE946E6-678F-4591-8005-05D7745C80CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE946E6-678F-4591-8005-05D7745C80CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE946E6-678F-4591-8005-05D7745C80CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE946E6-678F-4591-8005-05D7745C80CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FC74DF6A-C784-419D-8A38-05112CDB4FA0} = {724C7B27-7746-41A4-BFE9-AAB5D4CE3413}
+		{DDE946E6-678F-4591-8005-05D7745C80CF} = {724C7B27-7746-41A4-BFE9-AAB5D4CE3413}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3FFD9397-8009-4841-8E22-F1C9F63C809C}
