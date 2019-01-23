@@ -1,6 +1,6 @@
 using System;
 
-namespace webtoys.Models
+namespace Webtoys.Web.Models
 {
     public class ErrorViewModel
     {
