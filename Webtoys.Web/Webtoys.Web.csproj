@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.0-beta1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
     <PackageReference Include="MediatR" Version="6.0.0" />
@@ -15,4 +23,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Webtoys.CQRS\Webtoys.CQRS.csproj" />
   </ItemGroup>
+
 </Project>
