@@ -9,6 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Components\ImageEncoder\ImageEncoder.jsx" />
+    <Content Include="Components\site.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="bundleconfig.json" />
   </ItemGroup>
 
