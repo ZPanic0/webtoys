@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Newtonsoft.Json;
+using Webtoys.CQRS.ImageEncoder.Queries;
 using Webtoys.Web.Models;
 
 namespace Webtoys.Web.Controllers
@@ -14,11 +16,16 @@ namespace Webtoys.Web.Controllers
     [Route("api/[controller]")]
     public class ImageEncoderController : Controller
     {
-        [HttpPost("[action]")]
-        public string Encode(ImageEncodeDecodeViewModel file)
+        public readonly IMediator Mediator;
+        public ImageEncoderController(IMediator mediator)
         {
-            throw new Exception();
-            return string.Empty;
+            Mediator = mediator;
+        }
+
+        [HttpPost("[action]")]
+        public async Task<string> Encode(ImageEncodeDecodeViewModel file)
+        {
+            return await Mediator.Send(new EncodeFileToImage(file.File));
         }
 
         [HttpPost("[action]")]

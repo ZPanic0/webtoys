@@ -19,7 +19,3 @@ section {
 .spacer {
     margin: 0 0 16px 0;
 }
-.imageResult {
-    height: 100%;
-    object-fit: contain;
-}

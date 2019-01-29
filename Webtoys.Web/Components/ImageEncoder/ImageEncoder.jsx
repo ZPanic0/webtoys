@@ -110,9 +110,9 @@ export default class ImageEncoder extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-sm-6">
+                    <div className={this.state.imageData ? "col-sm-2" : "col-sm-6"}>
                         {this.state.processing ? <span className="fas fa-sync fa-spin"></span> : null}
-                        <img className="imageResult" src={this.state.imageData}></img>
+                        <img className="img-fluid" src={this.state.imageData}></img>
                         <div className="alert alert-danger" style={this.state.error ? {} : { display: 'none' }} role="alert">
                             An error occurred while processing. Please check the console for more details.
                         </div>
