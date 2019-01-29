@@ -260,3 +260,7 @@ paket-files/
 __pycache__/
 *.pyc
 Webtoys\.Web/wwwroot/css/site\.min\.css
+
+Webtoys\.Web/wwwroot/js/site\.js
+
+Webtoys\.Web/wwwroot/js/site\.min\.js
