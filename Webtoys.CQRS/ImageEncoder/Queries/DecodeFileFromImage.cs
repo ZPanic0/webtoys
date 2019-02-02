@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using System.IO.Compression;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using Webtoys.CQRS.ImageEncoder.Models;
 
 namespace Webtoys.CQRS.ImageEncoder.Queries
 {
@@ -39,38 +39,48 @@ namespace Webtoys.CQRS.ImageEncoder.Queries
         public async Task<DecodeFileFromImageResult> Handle(DecodeFileFromImage request, CancellationToken cancellationToken)
         {
             var imageBytes = await GetImageBytes(request);
-            //var 
-            //var decompressedBytes = DecompressBytes();
-            throw new Exception();
+            var fileBytes = GetBytesFromImage(imageBytes).ToArray();
+            var metadataLength = BitConverter.ToInt32(fileBytes.Take(4).ToArray());
+            var metadata = GetMetadata(fileBytes, metadataLength);
+            return new DecodeFileFromImageResult(
+                metadata.FileName,
+                fileBytes.Skip(4 + metadataLength).Take(metadata.ByteCount).ToArray()
+                );
         }
 
         private async Task<byte[]> GetImageBytes(DecodeFileFromImage request)
         {
-            byte[] imageBytes;
             using (var memory = new MemoryStream())
             using (var fileStream = request.File.OpenReadStream())
             {
                 await fileStream.CopyToAsync(memory);
-                imageBytes = memory.ToArray();
+                return memory.ToArray();
             }
-            return imageBytes;
         }
 
-        //private IEnumerable<byte> GetBytesFromImage(byte[] imageBytes)
-        //{
-        //    using (var image = Image.Load(imageBytes))
-        //    {
-
-        //    }
-        //}
-
-        private byte[] DecompressBytes(byte[] compressedBytes)
+        private IEnumerable<byte> GetBytesFromImage(byte[] imageBytes)
         {
-            using (var memoryStream = new MemoryStream())
-            using (var zip = new GZipStream(memoryStream, CompressionMode.Decompress))
+            using (var image = Image.Load(imageBytes))
             {
-                zip.Write(compressedBytes, 0, compressedBytes.Length);
-                return memoryStream.ToArray();
+                for (var y = 0; y < image.Height; y++)
+                {
+                    for (var x = 0; x < image.Width; x++)
+                    {
+                        yield return image[x, y].R;
+                        yield return image[x, y].G;
+                        yield return image[x, y].B;
+                        yield return image[x, y].A;
+                    }
+                }
+            }
+        }
+
+        private ImageMetadata GetMetadata(byte[] decompressedBytes, int metadataLength)
+        {
+            var binaryFormatter = new BinaryFormatter();
+            using (var memoryStream = new MemoryStream(decompressedBytes, 4, metadataLength))
+            {
+                return binaryFormatter.Deserialize(memoryStream) as ImageMetadata;
             }
         }
     }

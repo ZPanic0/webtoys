@@ -1,9 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
@@ -39,9 +37,13 @@ namespace Webtoys.CQRS.ImageEncoder.Queries
                 FileName = request.File.FileName
             });
             var metadataLengthInBytes = BitConverter.GetBytes(metadataBytes.Length);
-            
-            var compressedBytes = CompressBytes(metadataLengthInBytes.Concat(metadataBytes).Concat(fileBytes));
-            var imageBytes = await Mediator.Send(new BuildImageFromBytes(compressedBytes));
+
+            var imageBytes = await Mediator.Send(
+                new BuildImageFromBytes(
+                    metadataLengthInBytes
+                        .Concat(metadataBytes)
+                        .Concat(fileBytes)
+                        .ToArray()));
 
             return Convert.ToBase64String(imageBytes);
         }
@@ -62,18 +64,6 @@ namespace Webtoys.CQRS.ImageEncoder.Queries
             using (var memoryStream = new MemoryStream())
             {
                 binaryFormatter.Serialize(memoryStream, metadata);
-                return memoryStream.ToArray();
-            }
-        }
-        
-        private byte[] CompressBytes(IEnumerable<byte> bytes)
-        {
-            var byteArray = bytes.ToArray();
-            using (var memoryStream = new MemoryStream())
-            using (var zip = new GZipStream(memoryStream, CompressionLevel.Optimal))
-            {
-                zip.Write(byteArray, 0, byteArray.Length);
-
                 return memoryStream.ToArray();
             }
         }
