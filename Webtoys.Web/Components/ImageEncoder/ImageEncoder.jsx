@@ -69,6 +69,14 @@ export default class ImageEncoder extends React.Component {
                     decodedDownloadUrl: response.url
                 })
                 this.downloadLink.click()
+                this.setState({
+                    imageData: '',
+                    processing: false,
+                    lockControls: false,
+                    file: null,
+                    fileName: 'Choose file...',
+                    error: null
+                })
             })
             .catch(this.onCommunicationFail)
     }
