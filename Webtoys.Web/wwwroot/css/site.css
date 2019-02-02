@@ -1,0 +1,21 @@
+﻿body {
+    background-image: url('../images/prism.png');
+}
+
+    body .container {
+        background: #fff;
+    }
+
+section {
+    background-color: white;
+}
+
+.nav {
+    border-bottom: 1px solid lightgrey;
+    background: white;
+    margin: 0 -15px 0 -15px;
+}
+
+.spacer {
+    margin: 0 0 16px 0;
+}

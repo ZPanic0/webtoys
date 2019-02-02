@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div id="imageEncoderRoot"></div>
+<script type="text/javascript">
+    var staticUrls = staticUrls || {}
+    staticUrls.imageEncoder = {
+        encode: "@Url.Action("Encode", "ImageEncoder")",
+        decode: "@Url.Action("Decode", "ImageEncoder")"
+    }
+</script>
+<a id="downloadLink" style="display:none" asp-controller="ImageEncoder" asp-action="DownloadDecodedFile" download></a>
