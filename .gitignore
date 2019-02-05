@@ -264,3 +264,5 @@ Webtoys\.Web/wwwroot/css/site\.min\.css
 Webtoys\.Web/wwwroot/js/site\.js
 
 Webtoys\.Web/wwwroot/js/site\.min\.js
+
+Webtoys\.Web/Properties/PublishProfiles/webtoys - Web Deploy\.pubxml
