@@ -7,7 +7,8 @@ export default class ImageEncoder extends React.Component {
         this.state = {
             imageData: '',
             file: null,
-            fileName: 'Choose file...',
+            fileName: '',
+            displayFileName: 'Choose file...',
             fileValue: '',
             lockControls: true,
             processing: false,
@@ -41,8 +42,11 @@ export default class ImageEncoder extends React.Component {
                 this.setState({
                     imageData: `data:image/png;base64,${fileString}`,
                     processing: false,
+                    lockFiles: true,
                     file: null,
-                    fileName: 'Choose file...'
+                    fileName: '',
+                    displayFileName: 'Choose file...',
+                    error: null
                 })
             })
             .catch(this.onCommunicationFail)
@@ -72,13 +76,30 @@ export default class ImageEncoder extends React.Component {
                 this.setState({
                     imageData: '',
                     processing: false,
-                    lockControls: false,
+                    lockControls: true,
                     file: null,
-                    fileName: 'Choose file...',
+                    fileName: '',
+                    displayFileName: 'Choose file...',
                     error: null
                 })
             })
             .catch(this.onCommunicationFail)
+    }
+
+    getDisplayFileName(fileName) {
+        let displayFileName = ''
+
+        if (fileName.length <= this.props.MaxNameLength) {
+            displayFileName = fileName
+        } else {
+            let extension = ''
+            if (fileName.lastIndexOf('.') > -1) {
+                extension = fileName.split('.').pop()
+            }
+
+            displayFileName = `${fileName.substring(0, this.props.MaxNameLength - 3)}...${extension}`
+        }
+        return displayFileName;
     }
 
     onFileInputChange(e) {
@@ -86,6 +107,7 @@ export default class ImageEncoder extends React.Component {
             lockControls: false,
             file: e.target.files[0],
             fileName: e.target.files[0].name,
+            displayFileName: this.getDisplayFileName(e.target.files[0].name),
             error: null
         })
     }
@@ -110,7 +132,7 @@ export default class ImageEncoder extends React.Component {
                         <div className="input-group">
                             <div className="custom-file">
                                 <input onChange={this.onFileInputChange} id="fileInput" type="file" className="custom-file-input" disabled={this.state.processing} value={this.state.fileValue} />
-                                <label className="custom-file-label" htmlFor="fileInput">{this.state.fileName}</label>
+                                <label className="custom-file-label" htmlFor="fileInput">{this.state.displayFileName}</label>
                             </div>
                             <div className="input-group-append">
                                 <button onClick={this.encodeFile} className="btn btn-outline-secondary" disabled={this.state.lockControls ? 'disabled' : null}>Encode</button>
